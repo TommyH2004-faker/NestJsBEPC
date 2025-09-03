@@ -1,0 +1,31 @@
+import { Genre } from './genre.entity';
+import { Episode } from './episode.entity';
+import { Favorite } from './favorite.entity';
+import { Review } from './review.entity';
+import { Comment } from './comment.entity';
+export declare class Movie {
+    id: number;
+    title: string;
+    original_title: string;
+    slug: string;
+    description: string;
+    release_date: string;
+    duration: number;
+    poster_url: string;
+    banner_url: string;
+    trailer_url: string;
+    status: string;
+    type: string;
+    country: string;
+    director: string;
+    cast: string;
+    rating: number;
+    views: number;
+    created_at: Date;
+    updated_at: Date;
+    genres: Genre[];
+    episodes: Episode[];
+    comments: Comment[];
+    reviews: Review[];
+    favorites: Favorite[];
+}

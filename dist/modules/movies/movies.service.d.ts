@@ -1,0 +1,32 @@
+import { Repository } from 'typeorm';
+import { Movie } from '../../entity/movie.entity';
+import { Review } from 'src/entity/review.entity';
+import { Comment } from 'src/entity/comment.entity';
+export declare class MoviesService {
+    private moviesRepository;
+    private reviewsRepository;
+    private commentsRepository;
+    constructor(moviesRepository: Repository<Movie>, reviewsRepository: Repository<Review>, commentsRepository: Repository<Comment>);
+    findAll(): Promise<Movie[]>;
+    searchMoviesAdvanced(title?: string, genreId?: number, page?: number, size?: number, sort?: string): Promise<any>;
+    getMoviesByGenre(genreId: number, page?: number, size?: number, sort?: string): Promise<any>;
+    getMoviesByCountry(country: string, page?: number, size?: number, sort?: string): Promise<any>;
+    getAllMoviesWithoutPagination(sort?: string): Promise<Movie[]>;
+    getAllMoviesWithLimit(limit?: number, sort?: string): Promise<Movie[]>;
+    getAllMovies(page: number, size: number, sort: string): Promise<any>;
+    getNewMovies(page?: number, size?: number, sort?: string): Promise<any>;
+    getPopularMovies(page?: number, size?: number): Promise<any>;
+    getRelatedMovies(movieId: number, limit?: number): Promise<any>;
+    findOne(id: number): Promise<Movie>;
+    create(movieData: Partial<Movie>): Promise<Movie>;
+    update(id: number, updateData: Partial<Movie>): Promise<Movie>;
+    remove(id: number): Promise<void>;
+    incrementViews(id: number): Promise<Movie>;
+    getMovieStatistics(): Promise<any>;
+    private parseSortParameter;
+    findByMovieId(movieId: number): Promise<Review[]>;
+    getCommentsAndReviewsByMovieId(movieId: number): Promise<any>;
+    findMovieByGenreSlug(slug: string, size?: number): Promise<Movie[]>;
+    getTopMovies(): Promise<any>;
+    getCountMovies(): Promise<number>;
+}
