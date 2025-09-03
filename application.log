@@ -127,3 +127,7 @@
 {"level":"error","message":"Must supply api_key","timestamp":"2025-09-03T00:24:00.204Z"}
 {"level":"error","message":"Must supply api_key","timestamp":"2025-09-03T00:25:00.420Z"}
 {"level":"error","message":"Must supply api_key","timestamp":"2025-09-03T00:59:50.894Z"}
+{"level":"error","message":{"code":"ENOTFOUND","errno":-3008,"hostname":"api.cloudinary.com","storageErrors":[],"syscall":"getaddrinfo"},"timestamp":"2025-09-03T02:43:51.225Z"}
+{"level":"error","message":{"code":"ENOTFOUND","errno":-3008,"hostname":"api.cloudinary.com","storageErrors":[],"syscall":"getaddrinfo"},"timestamp":"2025-09-03T02:43:57.726Z"}
+{"level":"error","message":{"code":"ENOTFOUND","errno":-3008,"hostname":"api.cloudinary.com","storageErrors":[],"syscall":"getaddrinfo"},"timestamp":"2025-09-03T02:44:14.415Z"}
+{"level":"error","message":{"code":"ENOTFOUND","errno":-3008,"hostname":"api.cloudinary.com","storageErrors":[],"syscall":"getaddrinfo"},"timestamp":"2025-09-03T02:45:03.994Z"}

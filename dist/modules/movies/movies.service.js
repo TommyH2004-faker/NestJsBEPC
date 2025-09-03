@@ -19,13 +19,16 @@ const typeorm_2 = require("typeorm");
 const movie_entity_1 = require("../../entity/movie.entity");
 const review_entity_1 = require("../../entity/review.entity");
 const comment_entity_1 = require("../../entity/comment.entity");
+const genre_entity_1 = require("../../entity/genre.entity");
 let MoviesService = class MoviesService {
     moviesRepository;
     reviewsRepository;
+    genreRepository;
     commentsRepository;
-    constructor(moviesRepository, reviewsRepository, commentsRepository) {
+    constructor(moviesRepository, reviewsRepository, genreRepository, commentsRepository) {
         this.moviesRepository = moviesRepository;
         this.reviewsRepository = reviewsRepository;
+        this.genreRepository = genreRepository;
         this.commentsRepository = commentsRepository;
     }
     findAll() {
@@ -305,11 +308,23 @@ let MoviesService = class MoviesService {
     }
     async update(id, updateData) {
         try {
-            await this.moviesRepository.update(id, {
+            const movie = await this.moviesRepository.findOne({
+                where: { id },
+                relations: ['genres'],
+            });
+            if (!movie) {
+                throw new common_1.NotFoundException(`Movie with ID ${id} not found`);
+            }
+            if (updateData.genres) {
+                const genreIds = updateData.genres.map((g) => g.id || g);
+                const genres = await this.genreRepository.findByIds(genreIds);
+                movie.genres = genres;
+            }
+            Object.assign(movie, {
                 ...updateData,
                 updated_at: new Date(),
             });
-            return this.findOne(id);
+            return await this.moviesRepository.save(movie);
         }
         catch (error) {
             throw new common_1.BadRequestException(`Error updating movie: ${error.message}`);
@@ -478,8 +493,10 @@ exports.MoviesService = MoviesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(movie_entity_1.Movie)),
     __param(1, (0, typeorm_1.InjectRepository)(review_entity_1.Review)),
-    __param(2, (0, typeorm_1.InjectRepository)(comment_entity_1.Comment)),
+    __param(2, (0, typeorm_1.InjectRepository)(genre_entity_1.Genre)),
+    __param(3, (0, typeorm_1.InjectRepository)(comment_entity_1.Comment)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
         typeorm_2.Repository,
         typeorm_2.Repository])
 ], MoviesService);

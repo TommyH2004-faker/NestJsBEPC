@@ -4,12 +4,14 @@ import { Repository } from 'typeorm';
 import { Movie } from '../../entity/movie.entity';
 import { Review } from 'src/entity/review.entity';
 import { Comment } from 'src/entity/comment.entity';
+import { Genre } from '../../entity/genre.entity';
 @Injectable()
 export class MoviesService {
   constructor(
   // eslint-disable-next-line prettier/prettier
   @InjectRepository(Movie) private moviesRepository: Repository<Movie>,
   @InjectRepository(Review) private reviewsRepository: Repository<Review>,
+  @InjectRepository(Genre) private genreRepository: Repository<Genre>,
   @InjectRepository(Comment) private commentsRepository: Repository<Comment>, // index [2]
 ) {}
 
@@ -412,17 +414,51 @@ async getAllMovies(page: number, size: number, sort: string): Promise<any> {
   }
 
   // Cập nhật phim
+  // async update(id: number, updateData: Partial<Movie>): Promise<Movie> {
+  //   try {
+  //     await this.moviesRepository.update(id, {
+  //       ...updateData,
+  //       updated_at: new Date(),
+  //     });
+  //
+  //     return this.findOne(id);
+  //   } catch (error) {
+  //     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  //     throw new BadRequestException(`Error updating movie: ${error.message}`);
+  //   }
+  // }
   async update(id: number, updateData: Partial<Movie>): Promise<Movie> {
     try {
-      await this.moviesRepository.update(id, {
+      // lấy movie hiện tại
+      const movie = await this.moviesRepository.findOne({
+        where: { id },
+        relations: ['genres'], // load luôn genres cũ
+      });
+      if (!movie) {
+        throw new NotFoundException(`Movie with ID ${id} not found`);
+      }
+
+      // nếu có genres trong updateData thì load lại từ DB
+      if (updateData.genres) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-member-access
+        const genreIds = updateData.genres.map((g: any) => g.id || g);
+        const genres = await this.genreRepository.findByIds(genreIds);
+        movie.genres = genres;
+      }
+
+      // merge các field khác
+      Object.assign(movie, {
         ...updateData,
         updated_at: new Date(),
       });
 
-      return this.findOne(id);
+      // save lại (TypeORM sẽ tự xử lý bảng join cho ManyToMany)
+      return await this.moviesRepository.save(movie);
     } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      throw new BadRequestException(`Error updating movie: ${error.message}`);
+      throw new BadRequestException(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        `Error updating movie: ${error.message}`,
+      );
     }
   }
 

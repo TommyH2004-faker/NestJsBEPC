@@ -2,11 +2,13 @@ import { Repository } from 'typeorm';
 import { Movie } from '../../entity/movie.entity';
 import { Review } from 'src/entity/review.entity';
 import { Comment } from 'src/entity/comment.entity';
+import { Genre } from '../../entity/genre.entity';
 export declare class MoviesService {
     private moviesRepository;
     private reviewsRepository;
+    private genreRepository;
     private commentsRepository;
-    constructor(moviesRepository: Repository<Movie>, reviewsRepository: Repository<Review>, commentsRepository: Repository<Comment>);
+    constructor(moviesRepository: Repository<Movie>, reviewsRepository: Repository<Review>, genreRepository: Repository<Genre>, commentsRepository: Repository<Comment>);
     findAll(): Promise<Movie[]>;
     searchMoviesAdvanced(title?: string, genreId?: number, page?: number, size?: number, sort?: string): Promise<any>;
     getMoviesByGenre(genreId: number, page?: number, size?: number, sort?: string): Promise<any>;
