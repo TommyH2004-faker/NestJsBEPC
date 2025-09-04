@@ -15,40 +15,7 @@ export class CommentsController {
   findById(@Param('id') id: number) {
     return this.commentsService.findById(id);
   }
-//   @Post()
-//   async createComment(
-//     @Body() data: { content: string; userId: number; movieId: number },
-//   ): Promise<Comment> {
-//     // Kiểm tra dữ liệu đầu vào
-//     if (!data.content || !data.userId || !data.movieId) {
-//       throw new BadRequestException('Content, userId, and movieId are required.');
-//     }
 
-//     // Gọi service để tạo comment
-//     return this.commentsService.create(data);
-//   }
-//   @Delete(':id')
-//   async deleteComment(@Param('id') id: number): Promise<void> {
-//     return this.commentsService.delete(id);
-//   }
-//     @UseGuards(JwtAuthGuard)
-//  @Patch(':id/:movieId')
-//   async updateComment(
-//     @Param('id') id: string,
-//     @Param('movieId') movieId: string,
-//     @Req() req,
-//     @Body() data: Partial<Comment>,
-//   ): Promise<Comment> {
-//     // Kiểm tra dữ liệu đầu vào
-//     if (!data.content) {
-//       throw new BadRequestException('Content is required for updating a comment.');
-//     }
-
-//     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-//     const userId = req.user.sub; // lấy từ JWT
-//     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-//     return this.commentsService.update(+id, +movieId, userId, data);
-//   }
   @UseGuards(JwtAuthGuard)
   @Post()
   async createComment(
@@ -105,19 +72,6 @@ export class CommentsController {
   }
 
 
-//   @UseGuards(JwtAuthGuard)
-// @Delete(':id')
-// async deleteComment(@Param('id') id: number, @Req() req: any): Promise<void> {
-//   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-//   const user = req.user as { id: number; role: string };
-
-//   if (user.role === 'admin') {
-//     // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
-//     return this.commentsService.delete(id);
-//   }
-
-//   return this.commentsService.deleteByUser(id, user.id);
-// }
 @Delete('/comment/:id')
 async deleteComment2(@Param('id') id: number): Promise<void> {
   await this.commentsService.delete(id);
