@@ -283,10 +283,11 @@ async getTopMovies() {
   async deleteMovie(@Param('id', ParseIntPipe) id: number) {
     // Validate if movie exists
     await this.moviesService.findOne(id);
-    
+
     await this.moviesService.remove(id);
     return { message: 'Movie deleted successfully' };
   }
+
 
   // POST /movies/:id/view - Tăng lượt xem
   @Post(':id/view')
