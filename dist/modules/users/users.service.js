@@ -124,6 +124,13 @@ let UsersService = class UsersService {
         await this.userRepository.update(id, userData);
         return this.userRepository.findOneBy({ id });
     }
+    async deleteUser(id) {
+        const user = await this.userRepository.findOne({ where: { id } });
+        if (!user)
+            return null;
+        await this.userRepository.delete(id);
+        return user;
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([

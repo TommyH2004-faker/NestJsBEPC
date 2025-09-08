@@ -25,11 +25,11 @@ __decorate([
     __metadata("design:type", Number)
 ], Favorite.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => User_1.User, (user) => user.favorites, { eager: true }),
+    (0, typeorm_1.ManyToOne)(() => User_1.User, (user) => user.favorites, { eager: false }),
     __metadata("design:type", User_1.User)
 ], Favorite.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => movie_entity_1.Movie, (movie) => movie.favorites, { eager: true }),
+    (0, typeorm_1.ManyToOne)(() => movie_entity_1.Movie, (movie) => movie.favorites, { eager: false }),
     __metadata("design:type", movie_entity_1.Movie)
 ], Favorite.prototype, "movie", void 0);
 __decorate([

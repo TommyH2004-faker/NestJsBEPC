@@ -33,31 +33,55 @@ export class FavoritesController {
     }
     return this.favoritesService.findByUserId(userId);
   }
-   @UseGuards(JwtAuthGuard)
-  @Post('add')
-  async add(@Req() req, @Body('movieId') movieId: number): Promise<Favorite> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-    const userId = req.user.sub; // Lấy userId từ JWT
-    if (!movieId) {
-      throw new BadRequestException('movieId is required.');
-    }
-     
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    return this.favoritesService.add(userId, movieId);
-  }
-  @UseGuards(JwtAuthGuard)
-    @Delete('remove')
-  async remove(@Req() req, @Body('movieId') movieId: number): Promise<{ message: string }> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-    const userId = req.user.sub; // lấy từ JWT
-    if (!movieId) throw new BadRequestException('movieId is required.');
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    return this.favoritesService.remove(userId, movieId);
-  }
+
+  // @UseGuards(JwtAuthGuard)
+  //   @Delete('remove')
+  // async remove(@Req() req, @Body('movieId') movieId: number): Promise<{ message: string }> {
+  //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+  //   const userId = req.user.sub; // lấy từ JWT
+  //   if (!movieId) throw new BadRequestException('movieId is required.');
+  //   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  //   return this.favoritesService.remove(userId, movieId);
+  // }
     @Get('get-favorite-movie/:userId')
   async getFavoriteMovies(@Param('userId', ParseIntPipe) userId: number) {
     const movieIds = await this.favoritesService.getFavoriteMovieIds(userId);
     return movieIds;
+  }
+  // @UseGuards(JwtAuthGuard)
+  // @Post('add')
+  // async add(
+  //   @Req() req,
+  //   @Body('movieId') movieId: number,
+  // ): Promise<Favorite> {
+  //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
+  //   const userId = req.user.sub;
+  //   if (!movieId) {
+  //     throw new BadRequestException('movieId is required.');
+  //   }
+  //   return this.favoritesService.add(userId, movieId);
+  // }
+  @UseGuards(JwtAuthGuard)
+  @Post('add')
+  async add(@Req() req, @Body('movieId') movieId: number): Promise<Favorite> {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    const userId = req.user.id; // Lấy userId từ JWT
+    if (!movieId) {
+      throw new BadRequestException('movieId is required.');
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    return this.favoritesService.add(userId, movieId);
+  }
+  @UseGuards(JwtAuthGuard)
+  @Delete('remove/:movieId')
+  async remove(
+    @Req() req,
+    @Param('movieId', ParseIntPipe) movieId: number,
+  ): Promise<{ message: string }> {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
+    const userId = req.user.sub;
+    return this.favoritesService.remove(userId, movieId);
   }
 
 

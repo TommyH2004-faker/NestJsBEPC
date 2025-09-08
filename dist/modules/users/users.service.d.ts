@@ -22,4 +22,5 @@ export declare class UsersService {
     getInfoUserById(id: number): Promise<User | null>;
     ConfirmPassword(userId: number, password: string): Promise<boolean>;
     updateInfoUser(id: number, userData: UpdateUserDto): Promise<User | null>;
+    deleteUser(id: number): Promise<User | null>;
 }

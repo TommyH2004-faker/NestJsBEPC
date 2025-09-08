@@ -18,7 +18,11 @@ export class Review {
   @Column('text', { nullable: true })
   comment: string;
 
-  @ManyToOne(() => User, (user) => user.reviews)
+  // @ManyToOne(() => User, (user) => user.reviews)
+  // user: User;
+  @ManyToOne(() => User, (user) => user.reviews, {
+    onDelete: 'SET NULL',
+  })
   user: User;
 
   @ManyToOne(() => Movie, (movie) => movie.reviews)

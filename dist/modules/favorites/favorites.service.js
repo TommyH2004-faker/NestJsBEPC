@@ -52,9 +52,11 @@ let FavoritesService = class FavoritesService {
         if (!user || !movie) {
             throw new common_1.BadRequestException('User and movie are required to create a favorite.');
         }
-        const existing = await this.favoritesRepository.findOne({
-            where: { user: { id: userId }, movie: { id: movieId } },
-        });
+        const existing = await this.favoritesRepository
+            .createQueryBuilder('fav')
+            .where('fav.userId = :userId', { userId })
+            .andWhere('fav.movieId = :movieId', { movieId })
+            .getOne();
         if (existing) {
             throw new common_1.BadRequestException('This movie is already in your favorites.');
         }

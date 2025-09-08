@@ -30,8 +30,12 @@ let FavoritesController = class FavoritesController {
         }
         return this.favoritesService.findByUserId(userId);
     }
+    async getFavoriteMovies(userId) {
+        const movieIds = await this.favoritesService.getFavoriteMovieIds(userId);
+        return movieIds;
+    }
     async add(req, movieId) {
-        const userId = req.user.sub;
+        const userId = req.user.id;
         if (!movieId) {
             throw new common_1.BadRequestException('movieId is required.');
         }
@@ -39,13 +43,7 @@ let FavoritesController = class FavoritesController {
     }
     async remove(req, movieId) {
         const userId = req.user.sub;
-        if (!movieId)
-            throw new common_1.BadRequestException('movieId is required.');
         return this.favoritesService.remove(userId, movieId);
-    }
-    async getFavoriteMovies(userId) {
-        const movieIds = await this.favoritesService.getFavoriteMovieIds(userId);
-        return movieIds;
     }
 };
 exports.FavoritesController = FavoritesController;
@@ -63,6 +61,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], FavoritesController.prototype, "findByUserId", null);
 __decorate([
+    (0, common_1.Get)('get-favorite-movie/:userId'),
+    __param(0, (0, common_1.Param)('userId', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], FavoritesController.prototype, "getFavoriteMovies", null);
+__decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('add'),
     __param(0, (0, common_1.Req)()),
@@ -73,20 +78,13 @@ __decorate([
 ], FavoritesController.prototype, "add", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Delete)('remove'),
+    (0, common_1.Delete)('remove/:movieId'),
     __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Body)('movieId')),
+    __param(1, (0, common_1.Param)('movieId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", Promise)
 ], FavoritesController.prototype, "remove", null);
-__decorate([
-    (0, common_1.Get)('get-favorite-movie/:userId'),
-    __param(0, (0, common_1.Param)('userId', common_1.ParseIntPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", Promise)
-], FavoritesController.prototype, "getFavoriteMovies", null);
 exports.FavoritesController = FavoritesController = __decorate([
     (0, common_1.Controller)('favorites'),
     __metadata("design:paramtypes", [favorites_service_1.FavoritesService])

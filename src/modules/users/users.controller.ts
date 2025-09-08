@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from 'src/entity/User';
 import { UpdateUserDto } from './dto/UpdateDto';
@@ -6,24 +6,29 @@ import { UpdateUserDto } from './dto/UpdateDto';
 @Controller('users')
 export class UsersController {
   // eslint-disable-next-line prettier/prettier
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {
+  }
 
   @Get('count')
   async getCountUsers() {
     return await this.usersService.getCountUsers();
   }
+
   @Post()
   async createUser(@Body() userData: Partial<User>) {
     return await this.usersService.create(userData);
   }
+
   @Get('/user')
   async getAllUsers() {
     return await this.usersService.getAllUsers();
   }
+
   @Get(':id')
   async getInfoUserById(@Param('id') id: number) {
     return await this.usersService.getInfoUserById(id);
   }
+
   // @Put(":id")
   // async updateUser(
   //   @Param("id") id: number,
@@ -50,12 +55,22 @@ export class UsersController {
     }
     return updatedUser;
   }
- @Put(":id")
-async updateUser1(@Param("id") id: number, @Body() userData: UpdateUserDto) {
-  const updatedUser = await this.usersService.updateInfoUser(id, userData);
-  if (!updatedUser) {
-    return { message: "User not found" };
+
+  @Put(":id")
+  async updateUser1(@Param("id") id: number, @Body() userData: UpdateUserDto) {
+    const updatedUser = await this.usersService.updateInfoUser(id, userData);
+    if (!updatedUser) {
+      return { message: "User not found" };
+    }
+    return updatedUser;
   }
-  return updatedUser;
-}
+
+  @Delete(':id')
+  async deleteUser(@Param('id') id: number) {
+    const user = await this.usersService.deleteUser(id);
+    if (!user) {
+      return { message: 'User not found' };
+    }
+    return user;
+  }
 }

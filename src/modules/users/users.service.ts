@@ -14,10 +14,11 @@ export class UsersService {
     // eslint-disable-next-line prettier/prettier
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-     private readonly mailerService: MailerService,
+    private readonly mailerService: MailerService,
     @InjectRepository(Role)
     private readonly roleRepository: Repository<Role>,
-  ) {}
+  ) {
+  }
 
   // async create(userData: User): Promise<User> {
   //   const user = this.userRepository.create(userData);
@@ -28,7 +29,7 @@ export class UsersService {
 
   //   const hasshedPassword = await bcrypt.hash(user.password, 10);
   //   user.password = hasshedPassword;
-    
+
   //   return this.userRepository.save(user);
   // }
 
@@ -50,7 +51,7 @@ export class UsersService {
 //   return this.userRepository.save(user);
 // }
 
- async create(userData: Partial<User>): Promise<User> {
+  async create(userData: Partial<User>): Promise<User> {
     const user = this.userRepository.create(userData);
     user.enabled = false;
 
@@ -74,6 +75,7 @@ export class UsersService {
 
     return savedUser;
   }
+
   findByEmail(email: string): Promise<User | null> {
     const user = this.userRepository.findOneBy({ email });
     return user;
@@ -129,20 +131,20 @@ export class UsersService {
 //   user.enabled = true;
 //   return this.userRepository.save(user);
 // }
-async activateAccount(code: string): Promise<User | null> {
-  const user = await this.userRepository.findOne({ where: { activationCode: code } });
-  if (!user) return null;
+  async activateAccount(code: string): Promise<User | null> {
+    const user = await this.userRepository.findOne({ where: { activationCode: code } });
+    if (!user) return null;
 
-  // Nếu tài khoản đã kích hoạt rồi thì không cần lưu nữa
-  if (user.enabled) {
-    return user; // trả về user luôn
+    // Nếu tài khoản đã kích hoạt rồi thì không cần lưu nữa
+    if (user.enabled) {
+      return user; // trả về user luôn
+    }
+
+    user.enabled = true;
+    return this.userRepository.save(user);
   }
 
-  user.enabled = true;
-  return this.userRepository.save(user);
-}
-
- async forgotPassword(email: string): Promise<boolean> {
+  async forgotPassword(email: string): Promise<boolean> {
     const user = await this.userRepository.findOne({ where: { email } });
     if (!user) return false;
 
@@ -161,15 +163,19 @@ async activateAccount(code: string): Promise<User | null> {
 
     return true;
   }
+
   getCountUsers(): Promise<number> {
     return this.userRepository.count();
   }
+
   async getAllUsers(): Promise<User[]> {
     return this.userRepository.find();
-}
- async getInfoUserById(id: number): Promise<User | null> {
-  return this.userRepository.findOne({ where: { id } });
-}
+  }
+
+  async getInfoUserById(id: number): Promise<User | null> {
+    return this.userRepository.findOne({ where: { id } });
+  }
+
 //  async updateInfoUser(id: number, userData: Partial<User>): Promise<User | null> {
 //     const user = await this.userRepository.findOne({ where: { id } });
 //     if (!user) return null;
@@ -188,9 +194,18 @@ async activateAccount(code: string): Promise<User | null> {
   }
 
 
-async updateInfoUser(id: number, userData: UpdateUserDto) {
-  await this.userRepository.update(id, userData);
-  return this.userRepository.findOneBy({ id });
+  async updateInfoUser(id: number, userData: UpdateUserDto) {
+    await this.userRepository.update(id, userData);
+    return this.userRepository.findOneBy({ id });
+  }
+
+  async deleteUser(id: number): Promise<User | null> {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) return null;
+
+    await this.userRepository.delete(id);
+    return user;
+  }
 }
 
-}
+

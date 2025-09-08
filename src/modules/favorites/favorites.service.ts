@@ -49,10 +49,21 @@ export class FavoritesService {
     }
 
     // Check đã tồn tại chưa
-     
-    const existing = await this.favoritesRepository.findOne({
-      where: { user: { id: userId }, movie: { id: movieId } },
-    });
+
+    const existing = await this.favoritesRepository
+      .createQueryBuilder('fav')
+      .where('fav.userId = :userId', { userId })
+      .andWhere('fav.movieId = :movieId', { movieId })
+      .getOne();
+
+    // const existing = await this.favoritesRepository.findOne({
+    //   where: {
+    //     user: { id: userId },
+    //     movie: { id: movieId },
+    //   },
+    // });
+
+
 
     if (existing) {
       throw new BadRequestException('This movie is already in your favorites.');

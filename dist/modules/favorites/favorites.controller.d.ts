@@ -5,9 +5,9 @@ export declare class FavoritesController {
     constructor(favoritesService: FavoritesService);
     findAll(): Promise<Favorite[]>;
     findByUserId(userId: number): Promise<Favorite[]>;
+    getFavoriteMovies(userId: number): Promise<number[]>;
     add(req: any, movieId: number): Promise<Favorite>;
     remove(req: any, movieId: number): Promise<{
         message: string;
     }>;
-    getFavoriteMovies(userId: number): Promise<number[]>;
 }

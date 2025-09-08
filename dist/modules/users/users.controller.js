@@ -51,6 +51,13 @@ let UsersController = class UsersController {
         }
         return updatedUser;
     }
+    async deleteUser(id) {
+        const user = await this.usersService.deleteUser(id);
+        if (!user) {
+            return { message: 'User not found' };
+        }
+        return user;
+    }
 };
 exports.UsersController = UsersController;
 __decorate([
@@ -95,6 +102,13 @@ __decorate([
     __metadata("design:paramtypes", [Number, UpdateDto_1.UpdateUserDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updateUser1", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "deleteUser", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

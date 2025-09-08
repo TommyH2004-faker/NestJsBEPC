@@ -17,4 +17,7 @@ export declare class UsersController {
     updateUser1(id: number, userData: UpdateUserDto): Promise<User | {
         message: string;
     }>;
+    deleteUser(id: number): Promise<User | {
+        message: string;
+    }>;
 }
