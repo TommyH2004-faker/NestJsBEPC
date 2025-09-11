@@ -1,7 +1,7 @@
 import { User } from '../../entity/User';
 import { Repository } from 'typeorm';
-import { Role } from 'src/entity/role.entity';
-import { MailerService } from 'src/shared/mailer.service';
+import { Role } from '../../entity/role.entity';
+import { MailerService } from '@src/shared/mailer.service';
 import { UpdateUserDto } from './dto/UpdateDto';
 export declare class UsersService {
     private readonly userRepository;
