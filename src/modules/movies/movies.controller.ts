@@ -16,8 +16,8 @@ import {
   UploadedFiles
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
-import { Movie } from 'src/entity/movie.entity';
-import { Review } from 'src/entity/review.entity';
+import { Movie } from '@src/entity/movie.entity';
+import { Review } from '@src/entity/review.entity';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { storage } from '../Cloundinary/cloudinary-storage';
 

@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Req, UseGuards } from '@nestjs/common';
 import { FavoritesService } from './favorites.service';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
-import { Favorite } from 'src/entity/favorite.entity';
+import { JwtAuthGuard } from '@src/guards/jwt-auth.guard';
+import { Favorite } from '@src/entity/favorite.entity';
 
 
 @Controller('favorites')

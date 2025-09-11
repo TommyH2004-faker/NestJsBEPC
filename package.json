@@ -8,6 +8,7 @@
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start:dev": "nest start --watch",
+    "fix-imports": "node fix-imports.js",
     "start": "node -r tsconfig-paths/register dist/main.js",
     "build": "tsc -p tsconfig.build.json",
     "start:debug": "nest start --debug --watch",

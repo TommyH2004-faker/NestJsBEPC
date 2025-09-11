@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Query } from '@nestjs/common';
 import { GenresService } from './genres.service';
-import { Genre } from 'src/entity/genre.entity';
-import { Movie } from 'src/entity/movie.entity';
+import { Genre } from '@src/entity/genre.entity';
+import { Movie } from '@src/entity/movie.entity';
 import { MoviesService } from '../movies/movies.service';
 
 @Controller('genres')

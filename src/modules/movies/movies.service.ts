@@ -2,8 +2,8 @@ import { Injectable, NotFoundException, BadRequestException, Get } from '@nestjs
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Movie } from '../../entity/movie.entity';
-import { Review } from 'src/entity/review.entity';
-import { Comment } from 'src/entity/comment.entity';
+import { Review } from '@src/entity/review.entity';
+import { Comment } from '@src/entity/comment.entity';
 import { Genre } from '../../entity/genre.entity';
 @Injectable()
 export class MoviesService {
