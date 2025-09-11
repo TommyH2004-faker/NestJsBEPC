@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../entity/User';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { Role } from 'src/entity/role.entity';
+import { Role } from '../../entity/role.entity';
 import { MailerService } from 'src/shared/mailer.service';
 import { randomBytes } from 'crypto';
 import { UpdateUserDto } from './dto/UpdateDto';
