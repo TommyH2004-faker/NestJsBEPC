@@ -1,6 +1,6 @@
-import { Comment } from 'src/entity/comment.entity';
-import { Movie } from 'src/entity/movie.entity';
-import { User } from 'src/entity/User';
+import { Comment } from '@src/entity/comment.entity';
+import { Movie } from '@src/entity/movie.entity';
+import { User } from '@src/entity/User';
 import { Repository } from 'typeorm/repository/Repository';
 export declare class CommentsService {
     private readonly commentsRepository;
