@@ -118,3 +118,10 @@ export class AppModule {
 //     consumer.apply(RoleMiddleware).forRoutes('*');
 //   }
 // }
+// #DB_TYPE=mysql
+// ##DB_HOST=localhost
+// #DB_HOST=db
+// #DB_PORT=3306
+// #DB_NAME=nestjs_db
+// #DB_USER=spring_04
+// #DB_PASSWORD=spring04
