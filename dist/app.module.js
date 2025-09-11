@@ -49,7 +49,7 @@ let AppModule = class AppModule {
             jwtSecret: process.env.JWT_SECRET,
         });
         console.log('MAIL_USER:', process.env.MAIL_USER);
-        console.log('MAIL_PASS:', process.env.MAIL_PASS ? '✅ loaded' : '❌ missing');
+        console.log('MAIL_PASS:', process.env.MAIL_PASS ? ' loaded' : ' missing');
     }
     configure(consumer) {
         consumer
