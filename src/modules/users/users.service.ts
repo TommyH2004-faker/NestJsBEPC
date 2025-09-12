@@ -4,7 +4,7 @@ import { User } from '../../entity/User';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Role } from '../../entity/role.entity';
-import { MailerService } from '@src/shared/mailer.service';
+import { MailerService } from '../../shared/mailer.service';
 import { randomBytes } from 'crypto';
 import { UpdateUserDto } from './dto/UpdateDto';
 @Injectable()
