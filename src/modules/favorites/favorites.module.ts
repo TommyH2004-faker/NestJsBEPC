@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { FavoritesService } from './favorites.service';
 import { FavoritesController } from './favorites.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Favorite } from '@src/entity/favorite.entity';
-import { Movie } from '@src/entity/movie.entity';
-import { User } from '@src/entity/User';
+import { Favorite } from '../../entity/favorite.entity';
+import { Movie } from '../../entity/movie.entity';
+import { User } from '../../entity/User';
 
 @Module({
   controllers: [FavoritesController],

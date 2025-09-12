@@ -1,8 +1,8 @@
 import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { ReviewsService } from './reviews.service';
-import { JwtAuthGuard } from '@src/guards/jwt-auth.guard';
-import { Review } from '@src/entity/review.entity';
+import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
+import { Review } from '../../entity/review.entity';
 import { CreateReviewDto } from './create_dto';
 
 @Controller('reviews')

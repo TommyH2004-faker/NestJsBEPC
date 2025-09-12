@@ -1,9 +1,9 @@
  
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Favorite } from '@src/entity/favorite.entity';
-import { Movie } from '@src/entity/movie.entity';
-import { User } from '@src/entity/User';
+import { Favorite } from '../../entity/favorite.entity';
+import { Movie } from '../../entity/movie.entity';
+import { User } from '../../entity/User';
 import { Repository } from 'typeorm';
 
 @Injectable()

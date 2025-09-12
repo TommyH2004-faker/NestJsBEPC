@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Comment } from '@src/entity/comment.entity';
-import { Movie } from '@src/entity/movie.entity';
-import { User } from '@src/entity/User';
+import { Comment } from '../../entity/comment.entity';
+import { Movie } from '../../entity/movie.entity';
+import { User } from '../../entity/User';
 import { Repository } from 'typeorm/repository/Repository';
 @Injectable()
 export class CommentsService {

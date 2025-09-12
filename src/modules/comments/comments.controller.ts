@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { CommentsService } from './comments.service';
-import { Comment } from '@src/entity/comment.entity';
-import { JwtAuthGuard } from '@src/guards/jwt-auth.guard';
+import { Comment } from '../../entity/comment.entity';
+import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 @Controller('comments')
 export class CommentsController {
   // eslint-disable-next-line prettier/prettier

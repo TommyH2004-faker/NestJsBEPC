@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ReviewsService } from './reviews.service';
 import { ReviewsController } from './reviews.controller';
-import { Review } from '@src/entity/review.entity';
+import { Review } from '../../entity/review.entity';
 import { MoviesModule } from '../movies/movies.module';
 
 @Module({

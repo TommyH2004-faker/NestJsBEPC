@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Genre } from '@src/entity/genre.entity';
+import { Genre } from '../../entity/genre.entity';
 import { Repository } from 'typeorm/repository/Repository';
 import { UpdateGenreDto } from './dto/update-genre';
-import { Movie } from '@src/entity/movie.entity';
+import { Movie } from '../../entity/movie.entity';
 
 @Injectable()
 export class GenresService {

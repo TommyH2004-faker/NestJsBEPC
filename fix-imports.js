@@ -2,14 +2,25 @@
 const fs = require("fs");
 const path = require("path");
 
+const SRC_DIR = path.join(__dirname, "src");
+
 function replaceImportsInFile(filePath) {
   let content = fs.readFileSync(filePath, "utf8");
 
-  // Regex: tìm import có dạng từ "src/..." hoặc '../src/...' hoặc "../../src/..."
-  const updated = content.replace(
-    /(['"])(?:\.\.\/)*src\//g,
-    '$1@src/'
-  );
+  const updated = content.replace(/from\s+['"]@src\/([^'"]+)['"]/g, (match, importPath) => {
+    const absoluteImportPath = path.join(SRC_DIR, importPath);
+    let relativePath = path.relative(path.dirname(filePath), absoluteImportPath);
+
+    // chuẩn hóa path cho JS (./ hoặc ../)
+    if (!relativePath.startsWith(".")) {
+      relativePath = "./" + relativePath;
+    }
+
+    // bỏ phần mở rộng .ts hoặc .js
+    relativePath = relativePath.replace(/\.(ts|js)$/, "");
+
+    return `from '${relativePath.replace(/\\/g, "/")}'`;
+  });
 
   if (updated !== content) {
     fs.writeFileSync(filePath, updated, "utf8");
@@ -29,4 +40,4 @@ function walkDir(dir) {
 }
 
 // chạy script
-walkDir(path.join(__dirname, "src"));
+walkDir(SRC_DIR);
